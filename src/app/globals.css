@@ -22,12 +22,14 @@
 html {
   scroll-behavior: smooth;
   background: var(--cardboard-deep);
+  overflow-x: clip;
 }
 body {
   margin: 0;
   color: var(--ink);
   background: var(--cardboard);
   font-family: var(--font-sans), Arial, sans-serif;
+  overflow-x: clip;
 }
 .lang-pt { display: none; }
 html[data-locale="pt"] .lang-en { display: none; }
@@ -337,6 +339,9 @@ button {
   margin: 0;
   font: 400 clamp(2.8rem, 7vw, 6.5rem)/0.86 var(--display);
   letter-spacing: -0.035em;
+}
+.chapter-heading > div {
+  min-width: 0;
 }
 .chapter-heading p:last-child {
   max-width: 40rem;
@@ -1010,8 +1015,31 @@ button {
     justify-content: space-between;
     width: 100%;
   }
+  .chapter-heading {
+    grid-template-columns: 1.15rem minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+  .chapter-heading__issue {
+    margin-top: 0.2rem;
+    font-size: 0.62rem;
+  }
   .chapter-heading h2 {
-    font-size: clamp(3rem, 17vw, 5rem);
+    max-inline-size: 100%;
+    font-size: clamp(2.35rem, 11.8vw, 3.25rem);
+    overflow-wrap: normal;
+    hyphens: manual;
+  }
+  .chapter-heading p:last-child {
+    max-width: none;
+    font-size: 0.94rem;
+  }
+  .chapter-nav {
+    top: max(0.65rem, env(safe-area-inset-top));
+    right: 0.65rem;
+  }
+  .chapter-nav__toggle {
+    padding: 0.5rem 0.62rem;
+    font-size: 0.74rem;
   }
   .timeline {
     grid-template-columns: 1fr;
@@ -1024,8 +1052,9 @@ button {
     font-size: 0.58rem;
   }
   .blueprint {
-    padding: 2.4rem 1rem;
-    transform: scale(0.96);
+    min-height: 26rem;
+    padding: 2.1rem 0.8rem;
+    transform: none;
   }
   .blueprint-node {
     min-width: 4rem;
@@ -1038,7 +1067,13 @@ button {
     left: 47%;
   }
   .blueprint-node--worker {
-    right: 14%;
+    right: 11%;
+  }
+  .blueprint__note {
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+    font-size: 0.64rem;
   }
   .chapter--contact footer span {
     display: block;
