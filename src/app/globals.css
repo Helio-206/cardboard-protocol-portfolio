@@ -713,6 +713,9 @@ button {
   gap: 2rem;
   align-items: start;
 }
+.process-layout > * {
+  min-width: 0;
+}
 .blueprint {
   position: relative;
   min-height: 33rem;
@@ -1052,28 +1055,49 @@ button {
     font-size: 0.58rem;
   }
   .blueprint {
-    min-height: 26rem;
+    min-height: 25rem;
     padding: 2.1rem 0.8rem;
     transform: none;
   }
   .blueprint-node {
-    min-width: 4rem;
-    font-size: 0.52rem;
+    min-width: 3.35rem;
+    min-height: 2.75rem;
+    padding: 0.3rem;
+    font-size: 0.46rem;
   }
+  .blueprint-node--web { left: 5%; }
   .blueprint-node--gateway {
-    left: 23%;
+    left: 25%;
   }
   .blueprint-node--service {
-    left: 47%;
+    left: 50%;
+  }
+  .blueprint-node--store {
+    right: 3%;
+  }
+  .blueprint-node--queue {
+    right: 4%;
   }
   .blueprint-node--worker {
-    right: 11%;
+    right: 19%;
   }
   .blueprint__note {
     right: 1rem;
     left: 1rem;
     max-width: none;
     font-size: 0.64rem;
+  }
+  .process-sheet .paper-sheet__folio,
+  .process-code .paper-sheet__folio {
+    position: static;
+    display: block;
+    margin: 0 0 1.3rem;
+    text-align: right;
+  }
+  .process-code .code-fragment {
+    margin-top: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
   .chapter--contact footer span {
     display: block;
