@@ -21,6 +21,7 @@ import { timelineByLocale } from "@/data/timeline";
 
 export function PortfolioHome({ locale = defaultLocale }: { locale?: Locale }) {
   const content = messages[locale];
+  const whatsappHref = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(content.chapters.contact.whatsappMessage)}`;
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -253,7 +254,7 @@ export function PortfolioHome({ locale = defaultLocale }: { locale?: Locale }) {
             {content.chapters.contact.heading.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)}
           </h2>
           <p>{content.chapters.contact.body}</p>
-          <a className="ink-button" href={`mailto:${site.email}`}>
+          <a className="ink-button" href={whatsappHref} target="_blank" rel="noreferrer">
             {content.chapters.contact.cta} <InkArrow />
           </a>
           <div className="contact-sheet__links">

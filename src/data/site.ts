@@ -5,6 +5,7 @@ export const site = {
   fullName: "Nataniel Hélio Matondo",
   title: "Full-Stack Software Engineer & Systems Architect",
   email: "Heliomatondo@gmail.com",
+  whatsappNumber: "244951856001",
   github: "https://github.com/Helio-206",
   location: "Luanda / Worldwide",
   localeLabels: { en: "PT", pt: "EN" } satisfies Record<Locale, string>,
