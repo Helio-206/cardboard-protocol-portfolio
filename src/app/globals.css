@@ -568,24 +568,26 @@ button {
 .project-issue::after {
   position: absolute;
   z-index: 4;
-  top: -0.5rem;
-  width: 0.9rem;
-  height: 0.9rem;
+  top: 0.65rem;
+  width: 1.05rem;
+  height: 1.05rem;
   content: "";
   pointer-events: none;
   background:
-    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.92) 0 8%, transparent 10%),
-    radial-gradient(circle at 42% 38%, #c9c2b3 0 22%, #5d5850 55%, #1e1d1a 100%);
-  border: 1px solid rgba(24, 23, 20, 0.85);
+    radial-gradient(circle at 31% 25%, rgba(255, 234, 218, 0.96) 0 8%, transparent 10%),
+    radial-gradient(circle at 40% 38%, #d96754 0 22%, #a44335 52%, #5e201b 100%);
+  border: 1px solid rgba(74, 24, 19, 0.9);
   border-radius: 999px;
-  box-shadow: 0 0.35rem 0.35rem rgba(24, 23, 20, 0.35), inset -0.08rem -0.1rem 0.12rem rgba(0, 0, 0, 0.45);
+  box-shadow:
+    0 0.32rem 0.32rem rgba(24, 23, 20, 0.34),
+    inset -0.1rem -0.12rem 0.14rem rgba(68, 15, 11, 0.52);
 }
 .project-issue::before {
-  left: 18%;
+  left: 5.5%;
   transform: rotate(-8deg);
 }
 .project-issue::after {
-  right: 17%;
+  right: 5.5%;
   transform: rotate(11deg);
 }
 .project-issue header {
