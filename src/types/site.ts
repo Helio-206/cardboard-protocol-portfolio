@@ -18,6 +18,7 @@ export type Project = {
   technologies: string[];
   result: string;
   links: ProjectLink[];
+  storySlug?: "kaya" | "african-business-network" | "recall";
   accent: "blue" | "red" | "ink";
 };
 

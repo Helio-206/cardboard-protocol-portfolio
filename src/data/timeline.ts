@@ -28,9 +28,27 @@ export const timeline: TimelineEntry[] = [
 export const timelineByLocale: Record<Locale, TimelineEntry[]> = {
   en: timeline,
   pt: [
-    { period: "2022–2023", title: "Fundamentos", detail: "Começou a desenvolver aplicações web e a estudar fundamentos de software." },
-    { period: "2023–2024", title: "Sistemas", detail: "Expandiu para sistemas full-stack, bases de dados relacionais e redes." },
-    { period: "2024–2025", title: "Estrutura", detail: "Trabalhou em plataformas maiores, arquitetura de produto e ferramentas para programadores." },
-    { period: "2025–Presente", title: "Escala", detail: "Explora sistemas empresariais, arquitetura distribuída, tecnologia cívica e ecossistemas digitais." },
+    {
+      period: "2022–2023",
+      title: "Fundamentos",
+      detail: "Começou a desenvolver aplicações web e a estudar fundamentos de software.",
+    },
+    {
+      period: "2023–2024",
+      title: "Sistemas",
+      detail: "Expandiu para sistemas full-stack, bases de dados relacionais e redes.",
+    },
+    {
+      period: "2024–2025",
+      title: "Estrutura",
+      detail:
+        "Trabalhou em plataformas maiores, arquitetura de produto e ferramentas para programadores.",
+    },
+    {
+      period: "2025–Presente",
+      title: "Escala",
+      detail:
+        "Explora sistemas empresariais, arquitetura distribuída, tecnologia cívica e ecossistemas digitais.",
+    },
   ],
 };
