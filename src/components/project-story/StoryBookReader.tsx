@@ -114,29 +114,38 @@ export function StoryBookReader({
     if (!spread || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const leaves = spread.querySelectorAll<HTMLElement>(".story-book__leaf:not([hidden])");
-    const fromX = direction === "forward" ? 30 : -30;
-    const fromRotation = direction === "forward" ? -4 : 4;
+    const forward = direction === "forward";
+    const timeline = gsap.timeline();
 
-    gsap.fromTo(
+    timeline.fromTo(
       leaves,
       {
-        autoAlpha: 0.25,
-        x: fromX,
-        rotateY: fromRotation,
-        transformOrigin: direction === "forward" ? "left center" : "right center",
+        autoAlpha: 0.35,
+        xPercent: forward ? 105 : -105,
+        rotateY: forward ? -18 : 18,
+        rotateZ: forward ? -1.1 : 1.1,
+        scale: 0.985,
+        transformPerspective: 1400,
+        transformOrigin: forward ? "left center" : "right center",
+        boxShadow: forward
+          ? "-18px 18px 0 rgba(24, 23, 20, 0.2)"
+          : "18px 18px 0 rgba(24, 23, 20, 0.2)",
       },
       {
         autoAlpha: 1,
-        x: 0,
+        xPercent: 0,
         rotateY: 0,
-        duration: 0.58,
-        stagger: 0.055,
+        rotateZ: 0,
+        scale: 1,
+        duration: 0.7,
+        stagger: 0.08,
         ease: "power3.out",
-        clearProps: "transform,opacity,visibility",
+        clearProps: "transform,opacity,visibility,boxShadow",
       },
     );
 
     return () => {
+      timeline.kill();
       gsap.killTweensOf(leaves);
     };
   }, [currentPage, direction, isDesktop]);
@@ -183,13 +192,43 @@ export function StoryBookReader({
 
     dialog.showModal();
     dialogClosing.current = false;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(dialog, { clearProps: "all" });
+      return;
+    }
 
-    gsap.fromTo(
-      dialog,
-      { autoAlpha: 0, y: 22, rotate: -1.2, scale: 0.97 },
-      { autoAlpha: 1, y: 0, rotate: 0, scale: 1, duration: 0.36, ease: "power3.out" },
-    );
+    const stampColor =
+      story.accent === "blue" ? "rgba(49, 92, 114, 0.72)" : "rgba(164, 67, 53, 0.72)";
+    gsap
+      .timeline()
+      .fromTo(
+        dialog,
+        {
+          autoAlpha: 0,
+          y: -48,
+          rotate: -4,
+          scale: 0.78,
+          transformPerspective: 1200,
+          boxShadow: `28px 30px 0 ${stampColor}`,
+        },
+        {
+          autoAlpha: 1,
+          y: 10,
+          rotate: 1.6,
+          scale: 1.06,
+          duration: 0.2,
+          ease: "power4.out",
+        },
+      )
+      .to(dialog, {
+        y: 0,
+        rotate: 0,
+        scale: 1,
+        boxShadow: `10px 12px 0 ${stampColor}`,
+        duration: 0.3,
+        ease: "bounce.out",
+        clearProps: "transform,opacity,visibility,boxShadow",
+      });
   };
 
   const closeIndex = useCallback((): Promise<void> => {
@@ -198,6 +237,7 @@ export function StoryBookReader({
     dialogClosing.current = true;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(dialog, { clearProps: "all" });
       dialog.close();
       dialogClosing.current = false;
       return Promise.resolve();
