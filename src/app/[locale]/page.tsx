@@ -6,5 +6,10 @@ import { PortfolioHome } from "../page";
 export default async function LocalePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  return <><LocaleDocument locale={locale} /><PortfolioHome locale={locale} /></>;
+  return (
+    <>
+      <LocaleDocument locale={locale} />
+      <PortfolioHome locale={locale} />
+    </>
+  );
 }

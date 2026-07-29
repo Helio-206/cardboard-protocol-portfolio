@@ -52,19 +52,21 @@ export const skillClustersByLocale: Record<Locale, SkillCluster[]> = {
   en: skillClusters,
   pt: skillClusters.map((cluster) => ({
     ...cluster,
-    name: {
-      "Interface engineering": "Engenharia de interface",
-      "Backend systems": "Sistemas backend",
-      Data: "Dados",
-      Architecture: "Arquitetura",
-      Infrastructure: "Infraestrutura",
-    }[cluster.name] ?? cluster.name,
-    short: {
-      "01 / Interface": "01 / Interface",
-      "02 / Backend": "02 / Backend",
-      "03 / Data": "03 / Dados",
-      "04 / Architecture": "04 / Arquitetura",
-      "Core / Infrastructure": "Núcleo / Infraestrutura",
-    }[cluster.short] ?? cluster.short,
+    name:
+      {
+        "Interface engineering": "Engenharia de interface",
+        "Backend systems": "Sistemas backend",
+        Data: "Dados",
+        Architecture: "Arquitetura",
+        Infrastructure: "Infraestrutura",
+      }[cluster.name] ?? cluster.name,
+    short:
+      {
+        "01 / Interface": "01 / Interface",
+        "02 / Backend": "02 / Backend",
+        "03 / Data": "03 / Dados",
+        "04 / Architecture": "04 / Arquitetura",
+        "Core / Infrastructure": "Núcleo / Infraestrutura",
+      }[cluster.short] ?? cluster.short,
   })),
 };

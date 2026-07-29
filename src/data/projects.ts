@@ -41,6 +41,7 @@ export const projects: Project[] = [
   },
   {
     slug: "kaya-cli",
+    storySlug: "kaya",
     issue: "CASE 003",
     name: "KAYA CLI",
     eyebrow: "Local-first communication",
@@ -63,6 +64,7 @@ export const projects: Project[] = [
   },
   {
     slug: "abn",
+    storySlug: "african-business-network",
     issue: "CASE 004",
     name: "AFRICAN BUSINESS NETWORK",
     eyebrow: "Enterprise platform / monorepo",
@@ -115,6 +117,7 @@ export const projects: Project[] = [
 export const experiments: Project[] = [
   {
     slug: "recall",
+    storySlug: "recall",
     issue: "LAB 01",
     name: "RECALL",
     eyebrow: "Learning infrastructure",

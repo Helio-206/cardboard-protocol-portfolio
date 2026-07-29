@@ -62,7 +62,14 @@ export function PortfolioHome({ locale = defaultLocale }: { locale?: Locale }) {
               <br />
               MATONDO
             </h1>
-            <p className="cover__role">{content.cover.role.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)}</p>
+            <p className="cover__role">
+              {content.cover.role.split("\n").map((line, index) => (
+                <span key={line}>
+                  {index > 0 && <br />}
+                  {line}
+                </span>
+              ))}
+            </p>
             <p className="cover__subhead">{content.cover.subtitle}</p>
             <div className="cover__actions">
               <a className="ink-button" href="#origin">
@@ -74,10 +81,7 @@ export function PortfolioHome({ locale = defaultLocale }: { locale?: Locale }) {
             </div>
             <p className="cover__location">{content.cover.location}</p>
           </div>
-          <div
-            className="hero-artifact"
-            aria-label={content.cover.artifactLabel}
-          >
+          <div className="hero-artifact" aria-label={content.cover.artifactLabel}>
             <Image
               src="/illustrations/cardboard-protocol-cover.png"
               alt={content.cover.imageAlt}
@@ -197,7 +201,12 @@ export function PortfolioHome({ locale = defaultLocale }: { locale?: Locale }) {
         />
         <div className="process-layout">
           <BlueprintDiagram locale={locale} />
-          <PaperSheet rotation="right" label={content.chapters.process.protocol} className="process-sheet" data-reveal>
+          <PaperSheet
+            rotation="right"
+            label={content.chapters.process.protocol}
+            className="process-sheet"
+            data-reveal
+          >
             <ol>
               {content.chapters.process.steps.map((item, index) => (
                 <li key={item}>
@@ -209,7 +218,11 @@ export function PortfolioHome({ locale = defaultLocale }: { locale?: Locale }) {
             </ol>
             <p>{content.chapters.process.statement}</p>
           </PaperSheet>
-          <PaperSheet label={content.chapters.process.safeSnippet} className="process-code" data-reveal>
+          <PaperSheet
+            label={content.chapters.process.safeSnippet}
+            className="process-code"
+            data-reveal
+          >
             <CodeFragment />
           </PaperSheet>
         </div>
@@ -249,9 +262,19 @@ export function PortfolioHome({ locale = defaultLocale }: { locale?: Locale }) {
           title={content.chapters.contact.title}
           note={content.chapters.contact.note}
         />
-        <PaperSheet className="contact-sheet" rotation="left" label={content.chapters.contact.backCover} data-reveal>
+        <PaperSheet
+          className="contact-sheet"
+          rotation="left"
+          label={content.chapters.contact.backCover}
+          data-reveal
+        >
           <h2 id="contact-title">
-            {content.chapters.contact.heading.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)}
+            {content.chapters.contact.heading.split("\n").map((line, index) => (
+              <span key={line}>
+                {index > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h2>
           <p>{content.chapters.contact.body}</p>
           <a className="ink-button" href={whatsappHref} target="_blank" rel="noreferrer">

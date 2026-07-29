@@ -22,7 +22,10 @@ export function ReadingProgress({ locale }: { locale: Locale }) {
   }, []);
 
   return (
-    <div className="reading-progress" aria-label={`${messages[locale].accessibility.readingProgress}: ${Math.round(progress)}%`}>
+    <div
+      className="reading-progress"
+      aria-label={`${messages[locale].accessibility.readingProgress}: ${Math.round(progress)}%`}
+    >
       <span style={{ transform: `scaleX(${progress / 100})` }} />
     </div>
   );

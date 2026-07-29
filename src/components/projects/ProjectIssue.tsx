@@ -1,9 +1,11 @@
+import Link from "next/link";
 import type { Project } from "@/types/site";
 import { PaperSheet } from "@/components/cardboard/PaperSheet";
 import { TechnicalStamp } from "@/components/comic/TechnicalStamp";
 import type { Locale } from "@/i18n/config";
 import { messages } from "@/i18n/messages";
 import { projectTranslations } from "@/data/project-translations";
+import { storyUi } from "@/data/project-stories/ui";
 
 export function ProjectIssue({
   project,
@@ -63,16 +65,23 @@ export function ProjectIssue({
             <span key={technology}>{technology}</span>
           ))}
         </div>
-        {project.links.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            target={link.external ? "_blank" : undefined}
-            rel={link.external ? "noreferrer" : undefined}
-          >
-            {locale === "pt" && link.label === "Repository" ? labels.repository : link.label} ↗
-          </a>
-        ))}
+        <div className="project-issue__links">
+          {project.storySlug ? (
+            <Link href={`/${locale}/projects/${project.storySlug}/story`}>
+              {storyUi[locale].openProjectFile} →
+            </Link>
+          ) : null}
+          {project.links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noreferrer" : undefined}
+            >
+              {locale === "pt" && link.label === "Repository" ? labels.repository : link.label} ↗
+            </a>
+          ))}
+        </div>
       </footer>
     </PaperSheet>
   );
