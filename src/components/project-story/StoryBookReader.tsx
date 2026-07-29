@@ -1,7 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
+import { gsap } from "gsap";
 import { LanguageToggle } from "@/components/navigation/LanguageToggle";
 import { StoryChapter } from "@/components/project-story/StoryChapter";
 import { StoryProgress } from "@/components/project-story/StoryProgress";
@@ -53,6 +62,7 @@ export function StoryBookReader({
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const stageRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogClosing = useRef(false);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   const visiblePages = useMemo(
@@ -99,6 +109,38 @@ export function StoryBookReader({
     window.history.replaceState(null, "", `#page-${currentPage}`);
   }, [currentPage]);
 
+  useLayoutEffect(() => {
+    const spread = stageRef.current?.querySelector<HTMLElement>(".story-book__spread");
+    if (!spread || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const leaves = spread.querySelectorAll<HTMLElement>(".story-book__leaf:not([hidden])");
+    const fromX = direction === "forward" ? 30 : -30;
+    const fromRotation = direction === "forward" ? -4 : 4;
+
+    gsap.fromTo(
+      leaves,
+      {
+        autoAlpha: 0.25,
+        x: fromX,
+        rotateY: fromRotation,
+        transformOrigin: direction === "forward" ? "left center" : "right center",
+      },
+      {
+        autoAlpha: 1,
+        x: 0,
+        rotateY: 0,
+        duration: 0.58,
+        stagger: 0.055,
+        ease: "power3.out",
+        clearProps: "transform,opacity,visibility",
+      },
+    );
+
+    return () => {
+      gsap.killTweensOf(leaves);
+    };
+  }, [currentPage, direction, isDesktop]);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target;
@@ -136,15 +178,50 @@ export function StoryBookReader({
   }, [goNext, goPrevious, navigateTo, totalPages]);
 
   const openIndex = () => {
-    if (!dialogRef.current?.open) dialogRef.current?.showModal();
+    const dialog = dialogRef.current;
+    if (!dialog || dialog.open) return;
+
+    dialog.showModal();
+    dialogClosing.current = false;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    gsap.fromTo(
+      dialog,
+      { autoAlpha: 0, y: 22, rotate: -1.2, scale: 0.97 },
+      { autoAlpha: 1, y: 0, rotate: 0, scale: 1, duration: 0.36, ease: "power3.out" },
+    );
   };
 
-  const closeIndex = () => {
-    dialogRef.current?.close();
-  };
+  const closeIndex = useCallback((): Promise<void> => {
+    const dialog = dialogRef.current;
+    if (!dialog?.open || dialogClosing.current) return Promise.resolve();
+    dialogClosing.current = true;
 
-  const selectPage = (page: number) => {
-    closeIndex();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      dialog.close();
+      dialogClosing.current = false;
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      gsap.to(dialog, {
+        autoAlpha: 0,
+        y: 16,
+        rotate: 1,
+        scale: 0.98,
+        duration: 0.2,
+        ease: "power2.in",
+        onComplete: () => {
+          dialog.close();
+          dialogClosing.current = false;
+          resolve();
+        },
+      });
+    });
+  }, []);
+
+  const selectPage = async (page: number) => {
+    await closeIndex();
     navigateTo(page);
   };
 
@@ -278,14 +355,17 @@ export function StoryBookReader({
         ref={dialogRef}
         className="story-book__index"
         aria-labelledby="story-index-title"
-        onCancel={closeIndex}
+        onCancel={(event) => {
+          event.preventDefault();
+          void closeIndex();
+        }}
         onClick={(event) => {
-          if (event.currentTarget === event.target) closeIndex();
+          if (event.currentTarget === event.target) void closeIndex();
         }}
       >
         <header>
           <h2 id="story-index-title">{ui.tableOfContents}</h2>
-          <button type="button" onClick={closeIndex}>
+          <button type="button" onClick={() => void closeIndex()}>
             {ui.closeIndex}
           </button>
         </header>
