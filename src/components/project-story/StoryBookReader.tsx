@@ -373,6 +373,11 @@ export function StoryBookReader({
                 {ui.readAgain}
               </button>
               <Link href={`/${locale}#${projectAnchor}`}>{ui.backToProject}</Link>
+              <Link href={`/${locale}/projects/${story.slug}/lab`}>{ui.runSystemLab}</Link>
+              <Link href={`/${locale}/projects/${story.slug}/evidence`}>
+                {ui.enterEvidenceRoom}
+              </Link>
+              <Link href={`/${locale}/projects/${story.slug}/x-ray`}>{ui.inspectRepository}</Link>
             </div>
           </article>
         </div>

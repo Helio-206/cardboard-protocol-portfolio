@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { CardboardImpactMotion } from "@/components/motion/CardboardImpactMotion";
 import { defaultLocale, isLocale, locales, type Locale } from "@/i18n/config";
 import { metadataByLocale } from "@/i18n/messages";
 
@@ -69,5 +70,10 @@ export async function generateMetadata({
 }
 
 export default function LocaleLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return children;
+  return (
+    <>
+      <CardboardImpactMotion />
+      {children}
+    </>
+  );
 }

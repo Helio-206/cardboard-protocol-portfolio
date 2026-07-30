@@ -153,6 +153,11 @@ button {
   background: var(--warm-white);
   border: 2px solid var(--ink);
   box-shadow: var(--paper-shadow);
+  transform-origin: right top;
+  will-change: transform, opacity;
+}
+.chapter-nav__menu[hidden] {
+  display: none;
 }
 .chapter-nav__menu.is-open {
   display: grid;

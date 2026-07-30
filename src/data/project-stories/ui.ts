@@ -29,6 +29,9 @@ export const storyUi: Record<Locale, StoryUiMessages> = {
     chapter: "Chapter",
     readingProgress: "Story reading progress",
     switchLanguage: "Switch to Portuguese",
+    runSystemLab: "Run System Lab",
+    enterEvidenceRoom: "Enter Evidence Room",
+    inspectRepository: "Inspect Repository",
   },
   pt: {
     protocolLabel: "CARDBOARD PROTOCOL / DOSSIER DO PROJETO",
@@ -57,5 +60,8 @@ export const storyUi: Record<Locale, StoryUiMessages> = {
     chapter: "Capítulo",
     readingProgress: "Progresso de leitura da história",
     switchLanguage: "Mudar para inglês",
+    runSystemLab: "Executar System Lab",
+    enterEvidenceRoom: "Entrar na Evidence Room",
+    inspectRepository: "Inspecionar repositório",
   },
 };

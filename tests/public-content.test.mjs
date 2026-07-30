@@ -12,6 +12,14 @@ const storyReader = readFileSync(
   new URL("../src/components/project-story/StoryBookReader.tsx", import.meta.url),
   "utf8",
 );
+const chapterNavigation = readFileSync(
+  new URL("../src/components/navigation/ChapterNavigation.tsx", import.meta.url),
+  "utf8",
+);
+const cardboardImpactMotion = readFileSync(
+  new URL("../src/components/motion/CardboardImpactMotion.tsx", import.meta.url),
+  "utf8",
+);
 
 test("portfolio retains public contact routes and primary chapters", () => {
   assert.match(page, /mailto:\$\{site\.email\}/);
@@ -55,4 +63,21 @@ test("story editions include distinct narrative images and page controls", () =>
   assert.match(storyReader, /ArrowRight/);
   assert.match(storyReader, /showModal/);
   assert.match(storyReader, /totalPages = content\.chapters\.length \+ 2/);
+});
+
+test("the chapter index uses the cardboard impact motion and respects reduced motion", () => {
+  assert.match(chapterNavigation, /gsap\.timeline/);
+  assert.match(chapterNavigation, /power4\.out/);
+  assert.match(chapterNavigation, /back\.out\(2\.6\)/);
+  assert.match(chapterNavigation, /prefers-reduced-motion: reduce/);
+  assert.match(chapterNavigation, /aria-controls="chapter-index-menu"/);
+});
+
+test("cardboard impact motion covers global controls and engineering states", () => {
+  assert.match(cardboardImpactMotion, /pointerdown/);
+  assert.match(cardboardImpactMotion, /keydown/);
+  assert.match(cardboardImpactMotion, /archiveRevealSelector/);
+  assert.match(cardboardImpactMotion, /stateEchoTarget/);
+  assert.match(cardboardImpactMotion, /ScrollTrigger/);
+  assert.match(cardboardImpactMotion, /prefers-reduced-motion: reduce/);
 });
