@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { engineeringExperienceSlugs, engineeringProjectSlugs } from "@/data/engineering";
 import { projectStories } from "@/data/project-stories";
 import { locales } from "@/i18n/config";
 
@@ -10,6 +11,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
+  );
+  const engineeringEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    engineeringProjectSlugs.flatMap((slug) =>
+      engineeringExperienceSlugs.map((experience) => ({
+        url: `https://heliomatondo.dev/${locale}/projects/${slug}/${experience}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.72,
+      })),
+    ),
   );
 
   return [
@@ -26,5 +37,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     ...storyEntries,
+    ...engineeringEntries,
   ];
 }

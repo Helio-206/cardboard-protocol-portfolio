@@ -90,4 +90,7 @@ export type StoryUiMessages = {
   chapter: string;
   readingProgress: string;
   switchLanguage: string;
+  runSystemLab: string;
+  enterEvidenceRoom: string;
+  inspectRepository: string;
 };
